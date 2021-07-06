@@ -1,0 +1,104 @@
+{% extends 'layout/basetheme.html' %}
+{% block js %}
+    <script>
+        function fetchresults() {
+            let url = '/fetchresults';
+            $('.cover').fadeIn('fast');
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $('.cover').fadeOut('fast', function (e) {
+                    });
+                    let head = '<th scope="col">Sno.</th>' +
+                        '<th scope="col">User Id</th>' +
+                        '<th scope="col">Date/Time</th>' +
+                        '<th scope="col">Emails</th>\n' +
+                        '                    <th scope="col">Number of Mails</th>\n' +
+                        '                    <th scope="col">Number of Spams</th>\n' +
+                        '                    <th scope="col">Number of Hams</th>\n' +
+                        '                    <th scope="col">Hit Ratio</th>';
+                    let logs = '';
+                    $.each(data, function (i, v) {
+                        logs += '<tr>';
+                        $.each(v, function (i, val) {
+
+                            logs += '<td>' + val + '</td>\n'});
+                        logs += '</tr>';
+                    });
+                    $("#heading").html(head);
+
+                    $("#result").html(logs);
+                },
+                error: function (error) {
+                    alert(error);
+                    $('.cover').fadeOut('fast');
+                }
+            });
+
+        }
+
+        function fetchhistory() {
+            let url = '/fetchhistory';
+            $('.cover').fadeIn('fast');
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    $('.cover').fadeOut('fast', function (e) {
+                    });
+                    let logs = '';
+                    let head = '<th scope="col">Sno.</th>' +
+                        '<th scope="col">User Id</th>' +
+                        '<th scope="col">Subject</th>' +
+                        '<th scope="col">E-mails</th>\n' +
+                        '                    <th scope="col">Type of mail</th>\n';
+                    $.each(data, function (i, v) {
+                        logs += '<tr>';
+                        $.each(v, function (i, val) {
+
+                            logs += '<td>' + val + '</td>\n'});
+                        logs += '</tr>';
+                    });
+                    $("#heading").html(head);
+
+                    $("#result").html(logs);
+                },
+                error: function (error) {
+                    alert(error);
+                    $('.cover').fadeOut('fast');
+                }
+            });
+
+        }
+
+
+    </script>
+
+
+{% endblock %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="jumbotron">
+            <button class="btn btn-primary" onclick="fetchresults()">Logs</button>
+            <button class="btn btn-primary" onclick="fetchhistory()">History</button>
+
+            <table class="table table-hover">
+                <thead>
+                <tr id ="heading">
+
+
+
+
+                </tr>
+                </thead>
+                <tbody id="result">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

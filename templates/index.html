@@ -1,0 +1,36 @@
+{% extends 'layout/basetheme.html' %}
+
+{% block container %}
+    <div class="container">
+    <div class="jumbotron">
+
+        <h2 class="heading"></h2>
+        <div class="card mb-3">
+  <h3 class="card-header">Spam And Fraud Detection for Scanning Emails</h3>
+  <div class="card-body">
+  </div>
+
+  <img style="height: 200px; width: 50%; position: center; display: block;" class="main-image" src="static/images/img1.jpg"><br>
+    <p class="card-text">Scam emails have evolved to become a highly effective form of cyber attack. In fact, more than nine out of 10 successful hacking attacks today begin with email scams like phishing or spear-phishing. And scam emails containing ransomware or impersonation fraud are raising the stakes for corporate security even higher.</p>
+            <p class="card-text">Stopping scam emails is critical, as successful breaches can cost millions, destroy reputations and disrupt operations. But defending against this kind of email fraud requires something stronger than standard anti-spam and malware technology. To defend against this kind of cyber fraud, you need a system that can combine state-of-the-art security to stop scam emails, user education to spot a spoof email, and powerful archiving solutions that can speed recovery after a successful attack.</p>
+  </div>
+
+    </div>
+    </div>
+
+{% endblock %}
+{% block css %}
+    <style>
+    .main-image{
+        height: 75vh;
+        width: 100vh;
+
+    }
+    .jumbotron{
+        width: 120vh;
+    }
+    .main-image{
+        border-radius: 50%;
+    }
+    </style>
+{% endblock %}

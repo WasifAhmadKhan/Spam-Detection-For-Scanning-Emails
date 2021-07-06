@@ -1,0 +1,66 @@
+{%  extends 'layout/basetheme.html' %}
+{% block css %}
+
+{% endblock %}
+
+{% block container %}
+
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <div class="card">
+                    <article class="card-body">
+                        <h4 class="card-title text-center mb-4 mt-1">Sign Up</h4>
+                        <hr>
+
+                        {% if errors %}
+                        <p class="text-danger text-center">{{ errors }}</p>
+                        {% endif %}
+
+                        <p class="text-success text-center">Provide Correct Information</p>
+                        <form method="post">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-at"></i> </span>
+                                    </div>
+                                    <input name="email" class="form-control" placeholder="Email" type="email">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                    </div>
+                                    <input name="username" class="form-control" placeholder="username" type="text">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    <input name="pwd" class="form-control" placeholder="******" type="password">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-key"></i> </span>
+                                    </div>
+                                    <input name="cpwd" class="form-control" placeholder="****** (confirm)"
+                                           type="password">
+                                </div> <!-- input-group.// -->
+                            </div> <!-- form-group// -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-block"> Sign Up</button>
+                            </div> <!-- form-group// -->
+
+                        </form>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

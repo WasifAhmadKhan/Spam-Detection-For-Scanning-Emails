@@ -1,0 +1,152 @@
+{% extends 'layout/basetheme.html' %}
+{% block js %}
+    <script>
+        let edata = null;
+
+        function fetchmails() {
+            let url = '/fetch_request?mails=' + $('#mails').val();
+            $('.cover').fadeIn('fast');
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    edata = data;
+                    $('.cover').fadeOut('fast', function (e) {
+                        let subject = '';
+                        $.each(data, function (i, v) {
+                            subject +='<li class="list-group-item"><div class="card"><div class="card-body">'+v.from+'&nbsp&nbsp&nbspDate:- ' +v.date+ '</div><li class="list-group-item"><div class="card"><div class="card-body"> Subject:- ' + v.subject + '</div><div class="card-footer">' + v.snippet + '</div></div></li>';
+                        });
+                        $("#result").html(subject);
+                    });
+                },
+                error: function (error) {
+                    alert(error);
+                    $('.cover').fadeOut('fast');
+                }
+            });
+
+        }
+
+        function cancelFetchMails() {
+            $('.cover').fadeOut('fast');
+
+        }
+
+        function analyzemails() {
+
+            if (edata != null) {
+                let url = '/analyzemails';
+                $('.cover').fadeIn('fast');
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                          $('.cover').fadeOut('fast', function (e) {
+                        let results = '';
+                        for (let p in data) {
+                            for (let k in data[p]) {
+                            results += '<li class="list-group-item"><div class="card"><div class="card-body"> ' + k + '</div><div class="card-footer">'+ data[p][k] + '</div></div></li>';
+                        }}
+
+                        $("#result").html(results);
+                    });
+
+                    },
+                    error: function (error) {
+                        alert(error);
+                        $('.cover').fadeOut('fast');
+                    }
+
+                });
+            }
+            else {
+                alert("data not found!");
+
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block container %}
+
+    <div class="container">
+        <div class="jumbotron">
+            <div class="form-group">
+                <label class="col-form-label" for="inputDefault">Maximum Number of Emails</label>
+                <input type="text" class="form-control" placeholder="100" id="mails" value="100">
+            </div>
+            <button class="btn btn-primary" onclick="fetchmails()">Get Emails</button>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary" onclick="analyzemails()">Analyze Emails</button>
+                <ul class="list-group" id="result"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="cover">
+        <div class="area">
+            <div class="badge badge-success p-3">
+                Fetching Data from Server...
+            </div>
+            <br>
+            <br>
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <br>
+            <br>
+            <button class="btn btn-outline-danger " onclick="cancelFetchMails()">Cancel</button>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="static/css/css_loader.css">
+    <style>
+        .form-group {
+            width: 30vh;
+
+        }
+
+        .cover {
+            display: none;
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(116, 112, 119, 0.55);
+            left: 0;
+            top: 0;
+        }
+
+        .area {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -35%);
+        }
+
+        .area > button, .area > .lds-roller {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+        }
+    </style>
+{% endblock %}
